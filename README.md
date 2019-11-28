@@ -1,5 +1,5 @@
 # Python-Keylogger
-A simple proof of concept Python keylogger for Linux and Windows that uses the pynput module
+A simple proof of concept Python keylogger for Linux and Windows that uses the pynput module.
 No attempts are made at stealth, and for convenience the keylogger will close if the escape button is pressed. 
 
 ## WARNING
